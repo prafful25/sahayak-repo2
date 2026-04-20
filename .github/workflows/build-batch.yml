@@ -1,0 +1,95 @@
+name: Build API Batch
+
+on:
+  workflow_dispatch:
+    inputs:
+      container:
+        description: 'Container name (e.g. gst, edu, med)'
+        required: true
+        type: string
+      apis:
+        description: 'Space-separated spec filenames (e.g. gst_rate_api.txt hsn_lookup_api.txt)'
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 10
+      fail-fast: false
+      matrix:
+        api: ${{ fromJson(needs.parse.outputs.matrix) }}
+    needs: parse
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install aider-chat httpx fastapi uvicorn psycopg2-binary redis pytest pytest-asyncio python-dotenv pydantic requests
+
+      - name: Build API with aider + Gemini
+        env:
+          GEM          GEM          GEM     _A          GEM          GEM         SPEC_FILE="spe          GEM       "
+                   "${{ matrix.api }}"             I_NA                   "${{ matrix.api }}"             I_.event                   "$
+
+
+                             --m                             --m                             --m         --yes \
+            --message "$(cat .claude/CL            --mehe spe    le       an            --message "$(FastAPI endpoint            --message:
+            --messageut            E}.py (full route implementation)
+- tests/${CONTAINER}/test- tests/${CONTA (m- tests/$pytest tests)
+
+SPEC:
+$(cat ${SPEC_FILE})
+
+Follow ALL conventions in SEFollow ALL conventions in SEFollow AheFollow ALL c tables prefixed sahayak_${CONTAINERFollow ALL conv \
+            api/$            aoutes/${API_NAME}.py \
+            tests/${CONTAINER}/test_${API_NAME}.py
+
+      - name: Commit and push
+        run: |
+          git config user.email "build-bot@sahayak.ai"
+          git config user.name "Sahayak Build Bot"
+          git checkout -b build/${{ matrix.api }}
+          git add api/ tests/
+          git commit -m "build: ${{ matrix.api }} complete"
+          git push origin build/${{ matrix.api }}
+
+      - name: Create PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create \
+            --title "build: ${{ matrix.api }}" \
+            --body "Auto-built from spec. Container: ${{ github.event.inputs.container }}" \
+            --base main \
+            --head build/${{ matrix.api }}
+
+      - name: Notify Telegram
+        if: always()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          STATUS="${{ job.status }}"
+          MSG="[Repo1] ${{ matrix.api }}: ${STATUS}"
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            -d text="${MSG}"
+
+  parse:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        run: |
+          APIS="${{ github.event.inputs.apis }}"
+          JSON=$(echo $APIS | tr ' ' '\n' | jq -R . | jq -sc .)
+          echo "matrix=$JSON" >> $GITHUB_OUTPUT
