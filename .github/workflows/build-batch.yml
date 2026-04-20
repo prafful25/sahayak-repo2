@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       container:
-        description: 'Container name (e.g. gst, edu, med)'
+        description: 'Container name'
         required: true
         type: string
       api_name:
-        description: 'Single spec filename (e.g. gst_rate_api.txt)'
+        description: 'Spec filename'
         required: true
         type: string
 
@@ -17,36 +17,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: pip install aider-chat fastapi uvicorn psycopg2-binary redis pytest pytest-asyncio python-dotenv pydantic requests httpx
-
-      - name: Build API with aider + Gemini
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          CONTAINER="${{ github.event.inputs.container }}"
-          API_FILE="${{ github.event.inputs.api_name }}"
-          API_NAME="${API_FILE%.txt}"
-          SPEC=$(cat specs/${API_FILE})
-          SPEC=$(cat specs/${API_FILE})
-uts.a    uts.a    uts.a    u{CONutINuts.a    uts.a    uCOuts.a    u  uts.a    uts.a 
-                                                          no                                  \
-                      "$                      "$                      "$              /route                     st                   _${    NA     y (m                      "$ }"                                 "$        I_NAME}.py \
-            tests/${CONTAINE           PI_            tests/${CONTAINE   and            tests/${CONTAINE   git             tests/${CONTAINE           PI_            tests/${CONTAINE   and            tests/${CONTAINE   git             tests/${Cnam            tests/${CONTAINE           PI_"
-           it           it           it           it           it  |          t -m "           it           it           it           it                  it           it           it           it  PR
-           it           it           g           it           it           g             it           it           gil           it           it           g           it           it           g       .e           it           it           g           it           it           g        github.event.inputs.api_name }}" || true
-
-      - name: Notify Telegram
-        if: always()
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d text="[Repo1] ${{ github.event.inputs.api_name }}: ${{ job.status }}"
+      - name: Show inputs
+        run: echo 'container=${{ github.event.inputs.container }} api=${{ github.event.inputs.api_name }}'
