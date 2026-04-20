@@ -1,0 +1,187 @@
+============================================================================
+SAHAYAK DATA SERVICES — REPO 2 MASTER INDEX
+Brand New API Products (New Domains)
+Total: 34 APIs across 12 new containers
+============================================================================
+
+PURPOSE OF THIS REPOSITORY
+------------------------------------------------------------
+This repository contains all API specs that require a NEW domain,
+a NEW Docker container, and a NEW SSL certificate on the VPS.
+These are net-new product verticals not covered by the existing 12 APIs.
+Each new domain = a new product line with its own identity and ICP.
+Build order: provision domain → deploy FastAPI container → configure Nginx
+             → Let's Encrypt SSL → add OpenCLAW scraper → billing.
+
+============================================================================
+APIS BY NEW CONTAINER
+============================================================================
+
+NEW DOMAIN: aviation.sahayakonline.co.in
+Category  : Aviation (DGCA/AAI)
+------------------------------------------------------------
+  [V3_09 ] DGCA Scheduled Airline & Aircraft Registry API
+           Source: Vol 3 | File: spec_V3_09_DGCA_Scheduled_Airline_and_Aircraft_Registry_API.txt
+  [V3_10 ] AAI Airport Traffic Statistics API
+           Source: Vol 3 | File: spec_V3_10_AAI_Airport_Traffic_Statistics_API.txt
+           APIs in this container: 2
+
+NEW DOMAIN: bis.sahayakonline.co.in
+Category  : BIS/Standards & Precious Metals
+------------------------------------------------------------
+  [24    ] BIS/CRS Certification API
+           Source: Vol 1/2 | File: spec_24_BIS_CRS_Certification_API.txt
+  [26    ] BIS Hallmarking HUID API
+           Source: Vol 1/2 | File: spec_26_BIS_Hallmarking_HUID_API.txt
+  [33    ] Gold & Silver Spot Price API
+           Source: Vol 1/2 | File: spec_33_Gold_and_Silver_Spot_Price_API.txt
+  [34    ] BEE Energy Rating API
+           Source: Vol 1/2 | File: spec_34_BEE_Energy_Rating_API.txt
+           APIs in this container: 4
+
+NEW DOMAIN: energy.sahayakonline.co.in
+Category  : Energy, Minerals & Petroleum
+------------------------------------------------------------
+  [23    ] PNGRB Authorisation API
+           Source: Vol 1/2 | File: spec_23_PNGRB_Authorisation_API.txt
+  [31    ] Petroleum Price API
+           Source: Vol 1/2 | File: spec_31_Petroleum_Price_API.txt
+  [V3_13 ] IBM Mineral Production & Price API
+           Source: Vol 3 | File: spec_V3_13_IBM_Mineral_Production_and_Price_Data_API.txt
+  [V3_14 ] NMDC Iron Ore Price & Allocation API
+           Source: Vol 3 | File: spec_V3_14_NMDC_Iron_Ore_Price_and_Allocation_API.txt
+  [V3_15 ] CEA Installed Capacity & Generation API
+           Source: Vol 3 | File: spec_V3_15_CEA_Installed_Capacity_and_Generation_Data_API.txt
+  [V3_16 ] MNRE Solar & Wind Installation API
+           Source: Vol 3 | File: spec_V3_16_MNRE_Solar_and_Wind_Project_Installation_API.txt
+  [V3_17 ] State Electricity Tariff Order API
+           Source: Vol 3 | File: spec_V3_17_State_Electricity_Tariff_Order_API.txt
+  [V3_34 ] PESO Explosive & Petroleum Safety Licence API
+           Source: Vol 3 | File: spec_V3_34_PESO_Explosive_and_Petroleum_Safety_Licence_API.txt
+           APIs in this container: 8
+
+NEW DOMAIN: fame.sahayakonline.co.in
+Category  : EV Subsidies (FAME)
+------------------------------------------------------------
+  [27    ] FAME II Subsidy API
+           Source: Vol 1/2 | File: spec_27_FAME_II_Subsidy_API.txt
+           APIs in this container: 1
+
+NEW DOMAIN: fin.sahayakonline.co.in
+Category  : Financial Services (RBI/SEBI/AMFI/IRDAI)
+------------------------------------------------------------
+  [V3_01 ] RBI NBFC Registration API
+           Source: Vol 3 | File: spec_V3_01_RBI_NBFC_Registration_API.txt
+  [V3_02 ] SEBI Registered Intermediary Verification API
+           Source: Vol 3 | File: spec_V3_02_SEBI_Registered_Intermediary_Verification_API.txt
+  [V3_03 ] AMFI Mutual Fund Scheme & NAV API
+           Source: Vol 3 | File: spec_V3_03_AMFI_Mutual_Fund_Scheme_and_NAV_API.txt
+  [V3_04 ] RBI Bank Branch & IFSC Data API
+           Source: Vol 3 | File: spec_V3_04_RBI_Bank_Branch_and_IFSC_Data_API.txt
+  [V3_05 ] IRDAI Licensed Insurer Verification API
+           Source: Vol 3 | File: spec_V3_05_IRDAI_Licensed_Insurer_Verification_API.txt
+  [V3_06 ] IRDAI Insurance Broker & TPA Registry API
+           Source: Vol 3 | File: spec_V3_06_IRDAI_Insurance_Broker_and_TPA_Registry_API.txt
+  [V3_32 ] SEBI Research Analyst & Investment Adviser API
+           Source: Vol 3 | File: spec_V3_32_SEBI_Research_Analyst_and_Investment_Adviser_Status_.txt
+           APIs in this container: 7
+
+NEW DOMAIN: gem.sahayakonline.co.in
+Category  : Government e-Marketplace (GeM)
+------------------------------------------------------------
+  [V3_38 ] GeM Seller Registration & Status API
+           Source: Vol 3 | File: spec_V3_38_GeM_Seller_Registration_and_Status_API.txt
+  [V3_39 ] GeM Product Catalogue & Rate Contract API
+           Source: Vol 3 | File: spec_V3_39_GeM_Product_Catalogue_and_Rate_Contract_API.txt
+           APIs in this container: 2
+
+NEW DOMAIN: maritime.sahayakonline.co.in
+Category  : Maritime & Shipping
+------------------------------------------------------------
+  [V3_11 ] DG Shipping Vessel & Company Registry API
+           Source: Vol 3 | File: spec_V3_11_DG_Shipping_Vessel_and_Company_Registry_API.txt
+  [V3_12 ] India Major Port Cargo Throughput API
+           Source: Vol 3 | File: spec_V3_12_India_Major_Port_Cargo_Throughput_API.txt
+           APIs in this container: 2
+
+NEW DOMAIN: media.sahayakonline.co.in
+Category  : Media & Broadcasting (MIB)
+------------------------------------------------------------
+  [V3_30 ] MIB Registered TV Channel & OTT Platform API
+           Source: Vol 3 | File: spec_V3_30_MIB_Registered_TV_Channel_and_OTT_Platform_API.txt
+           APIs in this container: 1
+
+NEW DOMAIN: ngo.sahayakonline.co.in
+Category  : NGO / CSR / Non-Profit
+------------------------------------------------------------
+  [V3_26 ] FCRA Foreign Contribution Registration API
+           Source: Vol 3 | File: spec_V3_26_FCRA_Foreign_Contribution_Registration_API.txt
+  [V3_27 ] NGO Darpan Registration API
+           Source: Vol 3 | File: spec_V3_27_NGO_Darpan_Registration_API.txt
+           APIs in this container: 2
+
+NEW DOMAIN: telecom.sahayakonline.co.in
+Category  : Telecommunications (TRAI)
+------------------------------------------------------------
+  [V3_07 ] TRAI Telecom Subscriber Statistics API
+           Source: Vol 3 | File: spec_V3_07_TRAI_Telecom_Subscriber_Statistics_API.txt
+  [V3_08 ] TRAI Tariff & Interconnect Order Tracker API
+           Source: Vol 3 | File: spec_V3_08_TRAI_Tariff_and_Interconnect_Order_Tracker_API.txt
+           APIs in this container: 2
+
+NEW DOMAIN: tourism.sahayakonline.co.in
+Category  : Tourism & Hospitality
+------------------------------------------------------------
+  [V3_29 ] Ministry of Tourism Hotel Classification API
+           Source: Vol 3 | File: spec_V3_29_Ministry_of_Tourism_Hotel_Classification_API.txt
+           APIs in this container: 1
+
+NEW DOMAIN: vahan.sahayakonline.co.in
+Category  : Vehicle & Transport Registry
+------------------------------------------------------------
+  [29    ] Vehicle Recall API
+           Source: Vol 1/2 | File: spec_29_Vehicle_Recall_API.txt
+  [32    ] VAHAN Registration Stats API
+           Source: Vol 1/2 | File: spec_32_VAHAN_Registration_Stats_API.txt
+           APIs in this container: 2
+
+============================================================================
+BUILD STRATEGY
+============================================================================
+Each domain in this repo requires the following one-time setup:
+  1. Register subdomain on Hostinger DNS panel (5 min per domain)
+  2. Deploy new FastAPI container via Docker Compose (30 min per domain)
+  3. Configure Nginx reverse proxy entry + Let's Encrypt SSL (15 min)
+  4. Set up OpenCLAW scraper mission for the data source
+  5. Connect billing via existing Razorpay integration
+
+New domains/containers: 12
+Total new API endpoints: 34
+
+BUILD PRIORITY (by revenue potential):
+  1. fin.sahayakonline.co.in    — 7 APIs, high ARPU (fintech buyers)
+  2. energy.sahayakonline.co.in — 6 APIs, strong B2B demand
+  3. aviation.sahayakonline.co.in — 2 APIs, premium enterprise pricing
+  4. maritime.sahayakonline.co.in — 2 APIs, niche high-value buyers
+  5. bis.sahayakonline.co.in    — 4 APIs, broad e-commerce buyer base
+  6. telecom.sahayakonline.co.in — 2 APIs, enterprise analytics buyers
+  7. gem.sahayakonline.co.in    — 2 APIs, large MSME buyer market
+  8. ngo.sahayakonline.co.in    — 2 APIs, CSR/impact sector
+  9. vahan.sahayakonline.co.in  — 2 APIs, used car / fleet market
+ 10. fame.sahayakonline.co.in   — 1 API, EV dealer channel
+ 11. tourism.sahayakonline.co.in — 1 API, OTA and hospitality
+ 12. media.sahayakonline.co.in  — 1 API, broadcast compliance
+
+EXCLUDED FROM BOTH REPOS:
+  eCourts Case Status API — Excluded on DPDP Act 2023 grounds.
+  Full legal rationale documented in Vol 3 MASTER_INDEX from previous run.
+
+============================================================================
+LEGAL NOTE
+============================================================================
+All 34 APIs cleared. No personal consumer data. No advice components.
+Statutory/administrative/market data under DPDP Act S.3(c)(ii) exemption.
+Each spec contains a full senior legal counsel assessment.
+
+Sahayak Data Services | Prafful Garg | Meerut, Uttar Pradesh | April 2026
+============================================================================

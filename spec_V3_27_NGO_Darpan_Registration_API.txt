@@ -1,0 +1,254 @@
+============================================================================
+SAHAYAK DATA SERVICES — API BUILDING SPECIFICATION
+API V3_27: NGO Darpan Registration API
+VOL 3 NEW BUILD — Industry: NGO, CSR & Non-Profit. 2 day(s). Phase 1-3 infrastructure.
+============================================================================
+
+Subtitle    : NGO UID, sector focus, state operations, annual government grants received
+URL         : https://ngo.sahayakonline.co.in/v1/
+Domain      : Corporate CSR Teams / Government Scheme Agencies / Impact Investors
+Data Source : Niti Aayog NGO Darpan (ngodarpan.gov.in)
+Status      : NEW BUILD — New FastAPI endpoint on ngo.sahayakonline.co.in. Scraper for Niti Aayog NGO Darpan.
+Pricing     : Rs 1,999/mo Starter | Rs 2,999/mo Professional | Rs 4,999/mo Enterprise
+Build Time  : 2 day(s)  |  Difficulty: 2/5
+
+INFRASTRUCTURE AVAILABLE (SEO247 Phases 1-3 Complete — DO NOT reference Phase 4)
+===================================================================================
+Phase 1: VPS secured | UFW firewall (ports 22/80/443) | SSH key-only auth | Fail2ban
+         | UptimeRobot 5-min monitoring with WhatsApp+email alerts | rclone to Google Drive
+         | Docker with auto-restart policies on all containers
+
+Phase 2: n8n self-hosted (zero monthly cost, replaces Make.com) | Nginx + Let's Encrypt SSL
+         | Redis (conversation + job queue memory) | Portainer (Docker GUI) | Netdata
+         | PostgreSQL (schemas ready, daily 2AM backup to Google Drive)
+
+Phase 3: OpenCLAW autonomous agent — Playwright + BeautifulSoup web browsing, Airtable
+         read/write, Google Drive output (Docs/Sheets), task persistence with step-level
+         state saving, 11PM IST nightly cron, Groq (Llama 3.3 70B) for bulk extraction
+         + Claude Sonnet for complex analysis. System prompt: Sahayak MSME Services.
+
+Stack: Hostinger VPS Ubuntu 24 | Docker | n8n | OpenCLAW | Claude API (Sonnet) | Groq
+       PostgreSQL | Redis | Telegram Bot API | Razorpay | SendGrid | Airtable | rclone
+
+NOTE: Phase 4 (WhatsApp/Voice/Qdrant/OCR) NOT YET BUILT. All build specs assume Phase 1-3.
+
+UI/UX DESIGN SYSTEM — MANDATORY RULES
+========================================
+VISUAL METAPHOR : "Data Terminal" — professional regulatory intelligence product
+BACKGROUND      : #0f172a (Slate-900) | SURFACES: #1e293b | TABLE HEADERS: #111c2d
+TYPOGRAPHY      : system-ui for labels/prose | "Courier New" monospace for ALL data values
+COLOUR RULE     : One accent colour per product — never reuse across different products
+
+MOBILE FIRST (stress-test every layout at 358px card width before shipping):
+  Max 6 table columns on mobile, prefer 5
+  COLS constant: define ONCE, use in header div AND every data row div — no exceptions
+  Three-cell rule (always together): overflow:hidden + textOverflow:ellipsis + whiteSpace:nowrap
+  Date format: "DD Mon" ONLY — never "DD Mon YYYY" (saves column space on 358px)
+  Side-by-side panels: always set flexWrap:wrap or convert to vertical stack on mobile
+
+CTA SCENE:
+  4-breakpoint height budget system: xs<260, sm<340, md<440, default
+  At sm breakpoint (h=224): verify total stacked height < (224 - 2*vPad) before shipping
+  Sub-text: textAlign:"center" EXPLICIT — never inherit from parent
+
+useCardSize HOOK:
+  Copy VERBATIM from FSSAIVerifyAPI_Demo_Video_v2.jsx
+  CHROME=38, STRIP=30, 16:10 aspect ratio — ZERO modifications allowed
+  sceneKey: increment on every scene change so animations restart cleanly
+
+CSS KEYFRAMES (copy from FSSAI reference): wordUp, fadeIn, scaleIn, slideUp, fi
+
+PDF STACK:
+  Python + ReportLab Platypus (SimpleDocTemplate, Table, Paragraph, PageBreak, HRFlowable)
+  CRITICAL FONT: DejaVu Sans — /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
+  Standard ReportLab fonts (Helvetica/Times) CANNOT render Rs symbol — DejaVu only
+  Register both regular + bold: DejaVuSans.ttf + DejaVuSans-Bold.ttf
+  Output: /mnt/user-data/outputs/ | Layout: Two-column A4 (210mm x 297mm)
+
+COLOUR SYSTEM
+=============
+Primary (P)          : #047857   — borders, badges, progress bars, highlights
+Primary Dark (PD)    : #022c22   — gradient backgrounds, deep fills
+Accent (ACC)         : #10b981   — data values, active states
+Accent Light (CK)    : #6ee7b7   — labels, secondary text on dark bg
+Accent Lightest (CV) : #ecfdf5   — subtle fills, body text on coloured bg
+Reasoning            : Emerald = social sector, Niti Aayog green identity, impact organisations.
+Dark background      : #0f172a   |   PDF background: #FFFFFF
+
+GIF PREVIEW — 7 PHASES (~18-22s seamless loop)
+================================================
+Phase 1 BOOT (1.5s)
+  Display URL: ngo.sahayakonline.co.in/v1/ngo
+  Style: char-by-char reveal at 80ms/char | Courier New font
+  Header strip in Primary colour #047857 on #0f172a background
+
+Phase 2 CONNECT (2.5s)
+  Portal: Niti Aayog NGO Darpan
+  Sequential status messages with animated dots:
+    -> "Connecting to Niti Aayog NGO Darpan..."
+    -> "Authenticating request..."
+    -> "Portal handshake complete [tick]"
+
+Phase 3 FETCH (3.0s)
+  Counter animation: 0 -> 8,2721  (non-round real dataset count)
+  Label: "Records fetched"
+  Progress bar fills in Accent colour #10b981
+  Sub-text: "Live pull from government portal"
+
+Phase 4 PARSE (3.5s)
+  JSON key-value pairs appear one-by-one (Courier New monospace):
+    {"ngo":"sample_value",
+      "status":"ACTIVE","verified":true,
+      "source":"Niti Aayog NGO Darpan"}
+  Keys in #10b981  |  Values in #f1f5f9
+
+Phase 5 INDEX (3.0s)
+  Message: "NGO Darpan Registration API records indexed and normalised"
+  Sub: "PostgreSQL updated | Schema normalised | Deduplication complete"
+
+Phase 6 ALERT (2.5s)
+  Alert box — red border #ef4444 + pulsing dot:
+  "New data update detected — NGO Darpan Registration API — just now"
+  Badge: "NEW" green background, white text | Timestamp: "Just now"
+
+Phase 7 READY (2.0s)
+  Green pulsing dot #22c55e + "LIVE" badge
+  Latency: "<150ms"  |  URL: ngo.sahayakonline.co.in
+  Footer: "Sahayak Data Services — sahayakonline.co.in"
+
+DEMO VIDEO — 10 SCENES (~56s total)
+=====================================
+MANDATORY: useCardSize hook copied VERBATIM from FSSAIVerifyAPI_Demo_Video_v2.jsx
+  CHROME=38  |  STRIP=30  |  16:10 aspect ratio  |  ZERO modifications
+
+Scene 01 HOOK (6s | CinematicText dark #0f172a | wordUp animation | Georgia serif)
+  Heading : "Your team checks Niti Aayog NGO Darpan manually every week."
+  Sub-text: "No structured API exists in India for this data category."  [textAlign:center EXPLICIT — always]
+
+Scene 02 PROBLEM (5s | CinematicText PD->P gradient bg)
+  Heading : "Manual Niti Aayog NGO Darpan lookup costs hours of staff time."
+  Sub-text: "Your enterprise buyers in Corporate CSR Teams / Government Scheme Agenc have no API alternative today."  [textAlign:center EXPLICIT]
+
+Scene 03 SOLUTION (4.5s | scaleIn animation)
+  Product name large + capability badges:
+    [NGO Data] | [Live Status] | [Bulk Lookup] | [Webhook Alerts]
+  Badge style: #047857 background | white text | border-radius 4px
+
+Scene 04 LIVE DEMO 1 (6.5s | typing at 80ms/char + blinking cursor [block])
+  Query to API
+Result: structured JSON response in <150ms
+
+Scene 05 LIVE DEMO 2 (8s | MAIN DATA TABLE — mobile audit mandatory)
+  Table 5-col: Name | Code | Status | Date | Source
+  Real data rows from government portal
+  COLS constant: shared gridTemplateColumns for header + ALL data rows
+  Every cell: overflow:hidden + textOverflow:ellipsis + whiteSpace:nowrap
+  Date format: "DD Mon" only | Column audit at 358px before shipping
+
+Scene 06 LIVE DEMO 3 (6s | secondary feature)
+  Filter/sort results by state, date range, and compliance status
+
+Scene 07 LIVE DEMO 4 (5.5s | webhook/notification)
+  Webhook: Status change detected — NGO Darpan Registration API — alert fired now
+
+Scene 08 SCALE METRIC (4s | MetricReveal dark)
+  Number: "10,000+" in #10b981 (large, bold)
+  Label : "records in NGO Darpan Registration API live database" in #94a3b8
+
+Scene 09 SPEED METRIC (4s | MetricReveal dark)
+  Number: "<150ms"
+  Label : "average API response time"
+
+Scene 10 CTA (5.5s | 4-breakpoint gradient)
+  Tag    : "NGO. Verified."
+  URL    : ngo.sahayakonline.co.in   Email: hello@sahayak.in
+  Pricing: "Corporate CSR Teams / Government Sc | REST API | Webhooks"
+  Button : "Get API Access" in #047857
+  HEIGHT BUDGET: verify all stacked elements fit at h=224 (sm breakpoint) before shipping
+
+PDF ONE-PAGER (A4 Two-Column)
+==============================
+FONT — Register at top of every PDF script (REQUIRED):
+  pdfmetrics.registerFont(TTFont('DejaVuSans',
+    '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
+  pdfmetrics.registerFont(TTFont('DejaVuSans-Bold',
+    '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'))
+
+Section 1 HEADER STRIP (full width, #047857 background, white text)
+  NGO Darpan Registration API | NGO UID, sector focus, state operations, annual government grants received
+Section 2 HERO STATS (3 equal columns)
+  NGO Darpan Registry | Rs 1,999/mo | Registration Status
+Section 3 PROBLEM
+  "Corporate CSR teams verify NGO credentials before donations. Government agencies identify NGO partners for scheme implementation. Zero API competition."
+Section 4 DATA SOURCES
+  -> NGO Darpan portal (ngodarpan.gov.in)
+  -> Central government grants data
+Section 5 KEY ENDPOINTS (Courier New, #1e293b bg, #f1f5f9 text)
+  GET /v1/ngo/darpan?name={ngo_name}
+  GET /v1/ngo/darpan/uid?uid={unique_id}
+  GET /v1/ngo/darpan/sector?sector={health|education|livelihood}&state={state}
+  GET /v1/ngo/darpan/grants?name={ngo_name}
+Section 6 PRICING
+    Rs 1,999 Starter | Rs 2,999 Professional | Rs 4,999 Enterprise
+Section 7 P&L PROJECTION
+    M6: Rs 18,000 | M12: Rs 54,000 | M24: Rs 1,35,000
+Section 8 FOOTER
+  ngo.sahayakonline.co.in | hello@sahayak.in | Sahayak Data Services | Meerut, Uttar Pradesh | April 2026
+
+BUILD APPROACH (Phase 1-3 infrastructure only)
+================================================
+Approach   : OpenCLAW scraper for Niti Aayog NGO Darpan (ngodarpan.gov.in). New FastAPI endpoint on ngo.sahayakonline.co.in.
+Scraper    : OpenCLAW + n8n workflow
+Refresh    : As per government source update schedule
+Maintenance: Easy-Medium — stable government portal — <3 hrs/month
+
+Infrastructure sequence:
+  1. OpenCLAW nightly mission -> scrapes Niti Aayog NGO Darpan
+  2. n8n workflow: parse raw data, validate, write to PostgreSQL
+  3. FastAPI endpoint: serve structured JSON with Redis cache (30-min TTL)
+  4. Razorpay webhook: handle subscription billing events
+  5. SendGrid: send alert emails to subscribers on data changes
+  6. rclone: nightly PostgreSQL dump backup to Google Drive at 2AM IST
+
+MOBILE LAYOUT SPECIFICATION (358px target)
+============================================
+Table columns : Name | Code | Status | Date
+Column widths : 30% 20% 20% 30%
+Viewport      : 358px stress-test mandatory before shipping
+
+Mobile checklist:
+  [ ] No horizontal scroll at 358px
+  [ ] No text bleeding outside card boundary
+  [ ] COLS constant in both header and all data rows
+  [ ] All table dates in "DD Mon" format only
+  [ ] CTA vertically centred — not top-aligned
+  [ ] Side-by-side panels: flexWrap:wrap or vertical stack
+  [ ] Sub-text in cinematic scenes: textAlign:"center" explicit
+  [ ] Stat row: all stat boxes fully visible — no clipping
+  [ ] Nested card padding subtracted before column width calculation
+
+REVENUE & BUYER PROFILE
+=========================
+Month 6 Net  : Rs 18,000
+Month 12 Net : Rs 54,000
+Month 24 Net : Rs 1,35,000
+
+Ideal Customer Profile:
+  -> Corporate CSR teams (100+ large corporates with mandatory CSR)
+  -> Government scheme implementation agencies identifying NGO partners
+  -> Impact investors evaluating social sector organisations
+
+Example deal sizes:
+  -> 200 corporate CSR teams x Rs 1,999/mo = Rs 3.99L/mo
+  -> 50 impact investors x Rs 2,999/mo = Rs 1.49L/mo
+
+LEGAL ASSESSMENT (Senior Legal Counsel — 20-Year Experience)
+=============================================================
+Status: CLEAR
+
+NGO Darpan is a Government of India public platform for NGO transparency.
+
+============================================================================
+END OF SPECIFICATION
+Sahayak Data Services | Prafful Garg | Meerut, Uttar Pradesh | April 2026
+============================================================================
