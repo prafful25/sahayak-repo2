@@ -4,18 +4,46 @@ on:
   workflow_dispatch:
     inputs:
       container:
-        description: 'Container name'
+        description: Container name
         required: true
         type: string
       api_name:
-        description: 'Spec filename'
+        description: Spec filename
         required: true
         type: string
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Show inputs
-        run: echo 'container=${{ github.event.inputs.container }} api=${{ github.event.inputs.api_name }}'
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Python
+        run: |
+          python3 --version
+      - name: Install deps
+        run: pip install aider-chat fastapi uvicorn psycopg2-binary redis pytest pytest-asyncio python-dotenv pydantic requests httpx
+      - name: Build API
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          C=${{ github.event.inputs.container }}
+          F=${{ github.event.inputs.api_name }}
+          N=${F%.txt}
+          mkdir -p api/${C}/routes tests/${C}
+          aider --model gemini/gemini-2.5-pro --no-auto-commits --yes \
+            --message "$(cat .claude/CLAUDE.md) Create api/${C}/routes/${N}.py and tests/${C}/test_${N}.py with min 3 tests. SPEC: $(cat specs/${F})" \
+            api/${C}/routes/${N}.py \
+            tests/${C}/test_${N}.py
+      - name: Commit
+        run: |
+          git config user.email bot@sahayak.ai
+          git config user.name Bot
+          git checkout -b build/${{ github.event.inputs.api_name }}
+          git add api/ tests/
+          git diff --cached --quiet || git commit -m "build: ${{ github.event.inputs.api_name }}"
+          git push origin build/${{ github.event.inputs.api_name }}
